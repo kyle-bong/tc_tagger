@@ -6,7 +6,6 @@ RUN apt-get install -y language-pack-ko
 RUN pip install --upgrade pip
 RUN apt install python3.7
 
-python
 RUN pip install konlpy
 RUN pip install emoji
 
