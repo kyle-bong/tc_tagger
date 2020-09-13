@@ -3,6 +3,7 @@ MAINTAINER wdg369@gmail.com
 
 RUN apt-get update -y
 RUN apt-get install -y language-pack-ko
+RUN apt-get install git -y
 RUN pip install --upgrade pip
 RUN apt install python3.7
 
