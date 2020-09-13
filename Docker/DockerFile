@@ -1,18 +1,27 @@
-FROM ubuntu:16.04
-MAINTAINER wdg369@gmail.com
+## 2안
+### 필요 파일: git, python3, java, konlpy, emoji, pandas
 
-RUN apt-get install git
-RUN git clone https://github.com/kyle-bong/tc_tagger
+FROM ubuntu:16.04
+MAINTAINER <wdg369@gmail.com>
+
+ENV LANG=C.UTF-8
+ENV DEBIAN_FRONTED=noninteractive
+RUN apt-get update
+RUN apt-get install -y default-jdk default-jre
+RUN apt-get install -y python3-pip python3-dev
+RUN cd /usr/local/bin && \
+	ln -s /usr/bin/python3 python && \
+	ln -s /usr/bin/pip3 pip && \
+	pip3 install --upgrade pip
+    
+RUN apt-get clean -y && \
+	rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && \
+    apt-get install -y git && \
+    git clone https://github.com/HyeonminNam/tc_tagger.git
 WORKDIR /tc_tagger
 
-RUN pip install --upgrade pip
-RUN apt install python3.7
-
-RUN apt-get update -y
-RUN apt-get install -y language-pack-ko
-
-RUN pip install konlpy
-RUN pip install emoji
-
-RUN locale-gen en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
+RUN pip3 install konlpy && \
+pip3 install emoji && \
+pip3 install pandas
